@@ -157,3 +157,19 @@
     padding: 0;
   }
 }
+.popup__button_disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.popup__error {
+  display: block;
+  font-size: 12px;
+  line-height: 15px;
+  color: red;
+  margin-top: 5px;
+  opacity: 0;
+}
+
+.popup__error_visible {
+  opacity: 1;
+}
