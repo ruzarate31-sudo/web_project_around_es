@@ -1,132 +1,73 @@
 # TripleTen web_project_around_es
 
-# Proyecto Web Around (Proyecto 9)
+## Proyecto Web Around (Proyecto 10)
+Este proyecto es una página web interactiva donde se muestran diferentes lugares naturales en forma de tarjetas con imágenes. El usuario puede interactuar con la página editando su perfil, dando like a las tarjetas, eliminándolas y ampliando las imágenes en una ventana modal.
 
-## Descripción
-
-Este proyecto es una página web interactiva donde se muestran diferentes lugares naturales en forma de tarjetas con imágenes.  
-El usuario puede interactuar con la página editando su perfil, dando like a las tarjetas, eliminándolas y también ampliando las imágenes en una ventana modal.
-
-El proyecto fue desarrollado como parte del **Proyecto 9 del curso de desarrollo web**, construyéndose en varias etapas para agregar nuevas funcionalidades con JavaScript, incluyendo validación de formularios y mejoras en la experiencia de usuario.
-
-El proyecto se dividió en **3 partes principales**:
-
-1. Se implementó la estructura básica del proyecto, se crearon las tarjetas a partir de un template en HTML y se renderizaron dinámicamente con JavaScript usando un array de datos inicial.
-
-2. Se agregó la funcionalidad de interacción con las tarjetas, permitiendo:
-   - Dar like a las tarjetas.
-   - Eliminar tarjetas del grid.
-   - Crear nuevas tarjetas mediante un formulario y pulsando Enter mientras se escribe.
-
-3. Se agregaron ventanas modales (popups) para mejorar la interacción del usuario:
-   - Editar la información del perfil con validación de los campos.
-   - Agregar nuevas tarjetas con validación en tiempo real.
-   - Mostrar las imágenes en tamaño grande al hacer clic.
-   - Cerrar cualquier ventana modal mediante:
-     - Botón de cierre
-     - Clic en el overlay (superposición)
-     - Pulsando la tecla Esc
-
----
+En esta etapa (Proyecto 10), el enfoque principal fue la Programación Orientada a Objetos (POO). Se refactorizó todo el código base para organizar la lógica en clases reutilizables y módulos de JavaScript, mejorando la estructura y escalabilidad del código.
 
 ## Funcionalidad
-
 La página permite realizar las siguientes acciones:
 
-- Editar el nombre y la descripción del perfil mediante un formulario en un modal.
-- Crear nuevas tarjetas con título e imagen.
-- Mostrar tarjetas de lugares con imagen y título.
-- Dar **like** a una tarjeta.
-- **Eliminar** una tarjeta del listado.
-- **Abrir una imagen en tamaño grande** al hacer clic en la tarjeta.
-- Cerrar las ventanas modales usando el botón, overlay o tecla Esc.
-- Validación de todos los campos de los formularios antes de permitir el envío.
-- Botón de envío deshabilitado si algún campo no cumple la validación.
+- Refactorización POO: Lógica organizada en clases independientes para Tarjetas y Validación.
 
-Todas estas interacciones fueron implementadas usando **JavaScript y manipulación del DOM**, siguiendo buenas prácticas y metodología **BEM**.
+- Módulos JS: Uso de import y export para conectar diferentes scripts.
 
----
+- Gestión de Tarjetas: Crear, dar like y eliminar tarjetas dinámicamente.
+
+- Interacción Modal: Editar perfil y agregar nuevos lugares con cierre mediante botón, overlay o tecla Esc.
+
+- Validación Avanzada: Cada formulario cuenta con su propia instancia de validación en tiempo real.
+
+- Servidor Local: Implementación de módulos que requieren ejecución mediante un servidor (Live Server).
 
 ## Tecnologías utilizadas
+** HTML5
 
-Para desarrollar este proyecto se utilizaron las siguientes tecnologías:
+** CSS3 (Metodología BEM)
 
-- **HTML5**
-- **CSS3**
-- **JavaScript**
-- **Metodología BEM** para la organización de estilos
-- **Git** para control de versiones
-- **GitHub** para almacenar el repositorio
-- **GitHub Pages** para publicar el proyecto en línea
+** JavaScript (ES6+)
 
----
+**Programación Orientada a Objetos (OOP)
+
+** Módulos de JavaScript
+
+** Git / GitHub
 
 ## Estructura del proyecto
+El proyecto ha evolucionado a una estructura modular:
 
-El proyecto está organizado en diferentes carpetas para mantener el código más ordenado y fácil de entender.
 /blocks
-  card.css
-  cards.css
-  content.css
-  footer.css
-  header.css
-  page.css
-  popup.css
-  profile.css
+  (Archivos CSS por componentes)
 
 /images
-  add-icon.svg
-  avatar.jpg
-  close.svg
-  delete-icon.svg
-  edit-icon.svg
-  like-active.svg
-  like-inactive.svg
-  logo.svg
-  placeholder.jpg
+  (Iconos y recursos visuales)
 
 /pages
   index.css
 
 /scripts
+  Card.js
+  FormValidator.js
+  utils.js
   index.js
-  validate.js
 
 /vendor
-  fonts/
-  fonts.css
-  normalize.css
+  (Normalize.css y fuentes)
 
 index.html
 README.md
 .prettierignore
 
+ Descripción de la carpeta Scripts (Refactorizada)
+* Card.js Contiene la clase Card, encargada de crear el marcado de la tarjeta, configurar los manejadores de eventos (like, eliminar, abrir imagen) y devolver el elemento funcional.
 
-### Descripción de las carpetas
+* FormValidator.js Contiene la clase FormValidator, que gestiona la validación de campos, mensajes de error y el estado de los botones de envío para cualquier formulario de la página.
 
-**blocks/**  
-Contiene los estilos CSS organizados con la metodología **BEM**, donde cada bloque de la interfaz tiene su propio archivo.
+* utils.js Almacena las funciones utilitarias de apertura y cierre de modales que son compartidas por los diferentes módulos.
 
-**images/**  
-Contiene todos los iconos e imágenes utilizadas en la página.
+* index.js El archivo principal que importa las clases, inicializa las instancias de validación y coordina el renderizado inicial de la aplicación.
 
-**pages/**  
-Contiene el archivo principal de estilos que importa los estilos de los bloques.
+## Proyecto en línea
+Puedes ver el proyecto publicado en GitHub Pages en el siguiente enlace:
 
-**scripts/**  
-Contiene los archivos **index.js** y **validate.js**, donde se implementa toda la lógica de JavaScript del proyecto, incluyendo:
-
-- Renderizado dinámico de tarjetas.
-- Interacciones de perfil y tarjetas.
-- Gestión de ventanas modales y eventos (overlay, Esc, botón de cierre).
-- Validación de formularios.
-
-**vendor/**  
-Contiene archivos externos utilizados en el proyecto, como **normalize.css** y las fuentes.
-
----
-
-#### Proyecto en línea
-
-Puedes ver el proyecto publicado en GitHub Pages en el siguiente enlace:  
 https://ruzarate31-sudo.github.io/web_project_around_es/
