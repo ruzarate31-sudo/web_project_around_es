@@ -69,7 +69,11 @@ cardSection.renderItems();
 
 
 const editProfilePopup = new PopupWithForm("#edit-popup", (formData) => {
-  userInfo.setUserInfo(formData);
+  userInfo.setUserInfo({
+    name: formData.name,
+    job: formData.description
+  });
+
   editProfilePopup.close();
 });
 
