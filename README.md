@@ -1,55 +1,76 @@
 # TripleTen web_project_around_es
 
-## Proyecto Web Around (Proyecto 10)
+## Proyecto Web Around (Proyecto 11)
+
 Este proyecto es una página web interactiva donde se muestran diferentes lugares naturales en forma de tarjetas con imágenes. El usuario puede interactuar con la página editando su perfil, dando like a las tarjetas, eliminándolas y ampliando las imágenes en una ventana modal.
 
-En esta etapa (Proyecto 10), el enfoque principal fue la Programación Orientada a Objetos (POO). Se refactorizó todo el código base para organizar la lógica en clases reutilizables y módulos de JavaScript, mejorando la estructura y escalabilidad del código.
+En esta etapa (Proyecto 11), el enfoque principal fue la **profundización en la Programación Orientada a Objetos (POO)** mediante la creación de nuevas clases y la aplicación de **acoplamiento débil**. Se refactorizó aún más la arquitectura del proyecto para separar responsabilidades, mejorar la reutilización de componentes y facilitar la escalabilidad del código.
+
+---
 
 ## Funcionalidad
+
 La página permite realizar las siguientes acciones:
 
-- Refactorización POO: Lógica organizada en clases independientes para Tarjetas y Validación.
+* Refactorización avanzada POO: Implementación de nuevas clases (Section, Popup, PopupWithForm, PopupWithImage, UserInfo).
 
-- Módulos JS: Uso de import y export para conectar diferentes scripts.
+* Arquitectura modular: Separación clara de responsabilidades entre componentes.
 
-- Gestión de Tarjetas: Crear, dar like y eliminar tarjetas dinámicamente.
+* Gestión de Tarjetas: Crear, dar like y eliminar tarjetas dinámicamente.
 
-- Interacción Modal: Editar perfil y agregar nuevos lugares con cierre mediante botón, overlay o tecla Esc.
+* Renderizado dinámico: Uso de la clase Section para renderizar listas de elementos.
 
-- Validación Avanzada: Cada formulario cuenta con su propia instancia de validación en tiempo real.
+* Interacción Modal: Apertura y cierre de popups mediante clases especializadas.
 
-- Servidor Local: Implementación de módulos que requieren ejecución mediante un servidor (Live Server).
+* Formularios desacoplados: Manejo de envío de datos mediante callbacks.
+
+* Validación Avanzada: Cada formulario cuenta con su propia instancia de validación en tiempo real.
+
+* Control centralizado: index.js actúa como punto de conexión entre todas las clases.
+
+---
 
 ## Tecnologías utilizadas
+
 ** HTML5
 
 ** CSS3 (Metodología BEM)
 
 ** JavaScript (ES6+)
 
-**Programación Orientada a Objetos (OOP)
+** Programación Orientada a Objetos (OOP)
 
 ** Módulos de JavaScript
 
 ** Git / GitHub
 
+---
+
 ## Estructura del proyecto
-El proyecto ha evolucionado a una estructura modular:
+
+El proyecto ha evolucionado a una estructura modular más robusta:
 
 /blocks
   (Archivos CSS por componentes)
+
+/components
+  Card.js
+  FormValidator.js
+  Popup.js
+  PopupWithForm.js
+  PopupWithImage.js
+  Section.js
+  UserInfo.js
 
 /images
   (Iconos y recursos visuales)
 
 /pages
   index.css
-
-/scripts
-  Card.js
-  FormValidator.js
-  utils.js
   index.js
+
+/utils
+  utils.js
 
 /vendor
   (Normalize.css y fuentes)
@@ -58,16 +79,38 @@ index.html
 README.md
 .prettierignore
 
- Descripción de la carpeta Scripts (Refactorizada)
-* Card.js Contiene la clase Card, encargada de crear el marcado de la tarjeta, configurar los manejadores de eventos (like, eliminar, abrir imagen) y devolver el elemento funcional.
+---
 
-* FormValidator.js Contiene la clase FormValidator, que gestiona la validación de campos, mensajes de error y el estado de los botones de envío para cualquier formulario de la página.
+## Descripción de las clases (Refactorización Proyecto 11)
 
-* utils.js Almacena las funciones utilitarias de apertura y cierre de modales que son compartidas por los diferentes módulos.
+* Card.js
+  Encargada de crear tarjetas, manejar eventos (like, eliminar, click en imagen) y delegar la acción de apertura del popup mediante callbacks.
 
-* index.js El archivo principal que importa las clases, inicializa las instancias de validación y coordina el renderizado inicial de la aplicación.
+* FormValidator.js
+  Gestiona la validación de formularios, mostrando errores y controlando el estado de los botones.
+
+* Popup.js
+  Clase base para todos los popups. Maneja apertura, cierre, overlay y tecla ESC.
+
+* PopupWithImage.js
+  Extiende Popup. Se encarga de mostrar imágenes ampliadas en un modal.
+
+* PopupWithForm.js
+  Extiende Popup. Gestiona formularios, captura datos y ejecuta callbacks al enviar.
+
+* Section.js
+  Responsable de renderizar listas de elementos en el DOM utilizando una función renderer.
+
+* UserInfo.js
+  Gestiona la información del usuario directamente desde el DOM (nombre y descripción).
+
+* index.js
+  Archivo principal que conecta todas las clases, crea instancias, define callbacks y controla el flujo de la aplicación.
+
+---
 
 ## Proyecto en línea
-Puedes ver el proyecto publicado en GitHub Pages en el siguiente enlace:
+
+Podes ver el proyecto publicado en GitHub Pages en el siguiente enlace:
 
 https://ruzarate31-sudo.github.io/web_project_around_es/

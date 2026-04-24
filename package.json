@@ -1,0 +1,19 @@
+{
+  "name": "web_project_around_es",
+  "version": "0.0.1",
+  "description": "Este proyecto es una página web interactiva donde se muestran diferentes lugares naturales en forma de tarjetas con imágenes. El usuario puede interactuar con la página editando su perfil, dando like a las tarjetas, eliminándolas y ampliando las imágenes en una ventana modal.",
+  "homepage": "https://github.com/ruzarate31-sudo/web_project_around_es#readme",
+  "bugs": {
+    "url": "https://github.com/ruzarate31-sudo/web_project_around_es/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruzarate31-sudo/web_project_around_es.git"
+  },
+  "license": "ISC",
+  "author": "Rocio Zarate",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
