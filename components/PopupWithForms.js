@@ -1,43 +1,65 @@
-import Popup from './Popup.js';
-
+import Popup from "./Popup.js";
 export default class PopupWithForms extends Popup {
   constructor(popupSelector, handleFormSubmit) {
-  super(popupSelector);
+    super(popupSelector); 
+    this._handleFormSubmit = handleFormSubmit;
+    this._form = this._popup.querySelector(".popup__form");
+    this._inputList =
+      this._form.querySelectorAll(".popup__input");
 
-this._handleFormSubmit = handleFormSubmit;
-this._form = this._popup.querySelector('.popup__form');
-this._inputList = this._form.querySelectorAll('.popup__input');
-this._submitButton = this._form.querySelector('.popup__button');
-this._submitButtonText = this._submitButton.textContent;
+
+    this._submitButton =
+      this._form.querySelector(".popup__button");
+
+    this._defaultButtonText =
+      this._submitButton.textContent;
   }
 
 
   _getInputValues() {
-  const inputValues = {};
-  this._inputList.forEach(input => {
-  inputValues[input.name] = input.value;
-});
-return inputValues;
-}
 
-setEventListeners() {
-  super.setEventListeners();
-  this._form.addEventListener('submit', (event) => {
-  event.preventDefault();
-  this._handleFormSubmit(this._getInputValues());
-});
-}
+    const formValues = {};
 
-renderLoading(isLoading, loadingText = "Guardando...") {
-  if (isLoading) {
-    this._submitButton.textContent = loadingText;
-  } else {
-    this._submitButton.textContent = this._submitButtonText;
+  
+    this._inputList.forEach((input) => {
+
+      formValues[input.name] = input.value;
+    });
+
+    return formValues;
   }
-} 
 
-close() {
-  super.close();
-  this._form.reset();
-}
+  renderLoading(isLoading, loadingText = "Guardando...") {
+
+    if (isLoading) {
+
+      this._submitButton.textContent = loadingText;
+
+    } else {
+
+      this._submitButton.textContent =
+        this._defaultButtonText;
+    }
+  }
+
+  setEventListeners() {
+
+    super.setEventListeners();
+
+    this._form.addEventListener("submit", (evt) => {
+
+      evt.preventDefault();
+
+      this._handleFormSubmit(
+        this._getInputValues()
+      );
+    });
+  }
+
+  close() {
+
+    this._form.reset();
+
+    super.close();
+  }
 }

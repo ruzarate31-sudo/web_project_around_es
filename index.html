@@ -17,23 +17,51 @@
         />
       </header>
       <main class="content">
-        <section class="profile page__section">
-          <img class="profile__image" src="./images/avatar.jpg" alt="Avatar" />
-          <div class="profile__info">
-            <h1 class="profile__title">Jacques Cousteau</h1>
-            <button
-              aria-label="Editar perfil"
-              class="profile__edit-button"
-              type="button"
-            ></button>
-            <p class="profile__description">Explorador</p>
-          </div>
-          <button
-            aria-label="Agregar tarjeta"
-            class="profile__add-button"
-            type="button"
-          ></button>
-        </section>
+       <section class="profile page__section">
+
+  <div class="profile__avatar-container">
+
+    <!-- FOTO DE PERFIL -->
+    <img
+      class="profile__image"
+      src="./images/avatar.jpg"
+      alt="Avatar"
+    />
+
+    <!-- BOTÓN EDITAR AVATAR -->
+    <button
+      class="profile__avatar-edit-button"
+      type="button"
+      aria-label="Editar avatar"
+    ></button>
+
+  </div>
+
+  <div class="profile__info">
+
+    <h1 class="profile__title">
+      Jacques Cousteau
+    </h1>
+
+    <button
+      aria-label="Editar perfil"
+      class="profile__edit-button"
+      type="button"
+    ></button>
+
+    <p class="profile__description">
+      Explorador
+    </p>
+
+  </div>
+
+  <button
+    aria-label="Agregar tarjeta"
+    class="profile__add-button"
+    type="button"
+  ></button>
+
+</section>
         <section class="cards page__section">
           <ul class="cards__list"></ul>
           <template id="card-template">
@@ -147,6 +175,44 @@
         type="submit"
       >
         Sí
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+   <div class="popup" id="avatar-popup">
+
+  <div class="popup__content">
+
+    <button
+      aria-label="Cerrar ventana emergente"
+      class="popup__close"
+      type="button"
+    ></button>
+
+    <h3 class="popup__title">
+      Cambiar foto de perfil
+    </h3>
+
+    <form class="popup__form" id="avatar-form">
+
+      <input
+        class="popup__input popup__input_type_avatar"
+        name="avatar"
+        placeholder="Enlace de la imagen"
+        type="url"
+        required
+      />
+
+      <span class="popup__error popup__error_type_avatar"></span>
+
+      <button
+        class="button popup__button"
+        type="submit"
+      >
+        Guardar
       </button>
 
     </form>

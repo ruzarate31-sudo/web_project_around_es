@@ -38,6 +38,26 @@ editUserInfo({ name, about }){
       })
     }).then(this._checkResponse)
     }
+
+     editAvatar(avatar) {
+
+  return fetch(
+    `${this._baseUrl}users/me/avatar`,
+    {
+      method: "PATCH",
+      headers: {
+        ...this._headers,
+
+        "Content-Type": "application/json"
+      },
+
+      body: JSON.stringify({
+        avatar: avatar
+      })
+    }
+  )
+    .then(this._checkResponse);
+}
     
     addCard({ name, link }) {
  
@@ -56,11 +76,22 @@ editUserInfo({ name, about }){
 }
 
 changeLikeCardStatus(cardId, isLiked) {
-
-  return fetch(`${this._baseUrl}cards/${cardId}/likes`, {
-    method: isLiked ? "DELETE" : "PUT",
-    headers: this._headers
-  }).then(this._checkResponse);
+  return fetch(
+    `${this._baseUrl}cards/${cardId}/likes`,
+    {
+      method: isLiked ? "DELETE" : "PUT",
+      headers: this._headers
+    }
+  )
+    .then(this._checkResponse);
 }
 
+deleteCard(cardId) {
+
+  return fetch(`${this._baseUrl}cards/${cardId}`, {
+    method: "DELETE",
+    headers: this._headers
+
+  }).then(this._checkResponse);
+}
 }
