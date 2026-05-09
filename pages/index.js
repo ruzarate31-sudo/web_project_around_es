@@ -1,19 +1,11 @@
+import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithForms from "../components/PopupWithForms.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
-
-
-const initialCards = [
-  { name: "Valle de Yosemite", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg" },
-  { name: "Lago Louise", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg" },
-  { name: "Montañas Calvas", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg" },
-  { name: "Latemar", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg" },
-  { name: "Parque Nacional de la Vanoise", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg" },
-  { name: "Lago di Braies", link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago-di-braies.jpg" },
-];
 
 
 const validationConfig = {
@@ -24,6 +16,16 @@ const validationConfig = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible"
 };
+
+const api = new Api({
+  baseUrl: "https://around-api.es.tripleten-services.com/v1/",
+  headers: {
+    authorization: "2a4d7441-fa8c-47e6-90ab-f641e1a8e870"
+  }
+});
+
+
+
 
 const editButton = document.querySelector(".profile__edit-button");
 const addButton = document.querySelector(".profile__add-button");
@@ -37,26 +39,23 @@ const addFormElement = document.querySelector("#new-card-form");
 
 const userInfo = new UserInfo({
   nameSelector: ".profile__title",
-  jobSelector: ".profile__description"
+  jobSelector: ".profile__description",
+  avatarSelector: ".profile__image"
 });
 
 
 const imagePopup = new PopupWithImage("#image-popup");
 imagePopup.setEventListeners();
 
+const deleteCardPopup = new PopupWithConfirmation(
+  "#delete-card-popup"
+);
 
-function createCard(data) {
-  const card = new Card(data, "#card-template", (cardData) => {
-    imagePopup.open(cardData);
-  });
-
-  return card.generateCard();
-}
-
+deleteCardPopup.setEventListeners();
 
 const cardSection = new Section(
   {
-    items: initialCards,
+    items: [],
     renderer: (item) => {
       const cardElement = createCard(item);
       cardSection.addItem(cardElement);
@@ -65,25 +64,103 @@ const cardSection = new Section(
   ".cards__list"
 );
 
-cardSection.renderItems();
+function createCard(data) {
+  const card = new Card(
+    {
+      ...data,
 
+      userId: userInfo.getUserId()
+    },
+    "#card-template",
 
-const editProfilePopup = new PopupWithForm("#edit-popup", (formData) => {
-  userInfo.setUserInfo({
-    name: formData.name,
-    job: formData.description
+    (cardData) => {
+      imagePopup.open(cardData);
+    },
+    (cardInstance) => {
+
+      api.changeLikeCardStatus(
+        cardInstance.getId(),
+        cardInstance.isLiked()
+      )
+        .then((updatedCardData) => {
+
+          cardInstance.updateLikeStatus(updatedCardData);
+
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+   
+(cardInstance) => {
+  deleteCardPopup.setSubmitAction(() => {
+    cardInstance._handleDeleteCard();
+
+    deleteCardPopup.close();
   });
 
-  editProfilePopup.close();
-});
+  deleteCardPopup.open();
+}
+  );
+  return card.generateCard();
+}
 
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+
+    userInfo.setUserInfo(userData);
+
+    cards.forEach((cardData) => {
+      const cardElement = createCard(cardData);
+      cardSection.addItem(cardElement);
+    });
+
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+
+const editProfilePopup = new PopupWithForms("#edit-popup", (formData) => {
+ 
+  editProfilePopup.renderLoading(true);
+
+ api.editUserInfo({
+  name: formData.name,
+  about: formData.description
+ })
+    .then((updatedUserData) => {
+      userInfo.setUserInfo(updatedUserData);
+      editProfilePopup.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      editProfilePopup.renderLoading(false);
+    });
+});
 editProfilePopup.setEventListeners();
 
 
-const addCardPopup = new PopupWithForm("#new-card-popup", (formData) => {
-  const cardElement = createCard(formData);
-  cardSection.addItem(cardElement);
-  addCardPopup.close();
+const addCardPopup = new PopupWithForms("#new-card-popup", (formData) => {
+  addCardPopup.renderLoading(true, "Creando...");
+
+  api.addCard({
+    name: formData["place-name"],
+    link: formData.link
+  })
+    .then((newCardData) => {
+      const cardElement = createCard(newCardData);
+      cardSection.addItem(cardElement);
+      addCardPopup.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      addCardPopup.renderLoading(false);
+    });
 });
 
 addCardPopup.setEventListeners();

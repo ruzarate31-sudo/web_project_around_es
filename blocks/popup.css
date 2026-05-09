@@ -117,6 +117,21 @@
   margin: 0;
 }
 
+.popup__content_type_delete .popup__title {
+  margin: 0 0 20px;
+}
+.popup__content_type_delete .popup__button {
+  margin-top: 0;
+} 
+.popup__content_type_delete {
+  width: 430px;
+  min-height: unset;
+  height: 181px;
+  padding: 34px 36px 36px;
+  box-sizing: border-box;
+}
+
+
 @media screen and (max-width: 544px) {
   .popup {
     bottom: 112px;
